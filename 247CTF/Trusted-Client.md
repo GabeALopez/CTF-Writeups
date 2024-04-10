@@ -12,15 +12,15 @@ First attempts to be made were to try to login with default credentials. i.e.
 
 An interesting observation was made. When putting in the credentials on the page an alert would pop up as seen below:
 
-(Insert image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/alert.png)
 
 The fact that an alert was sent means that there might be some javascript (js) that is driving the login functionality. Thus opening inspect element we did:
 
-(Insert image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/inspectElement.png)
 
 Under the debugger tab and scrolling down a bit some js was discovered in an obfuscated format:
 
-(Insert image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/javascript.png)
 
 **Side note: Alternatively you can right click on the page and choose the "View page source" option to see the full HTML. You can also see the js embedded into the site this way too.**
 
@@ -60,27 +60,27 @@ What does this tangent have to with the the challenge? Well the long set of symb
 
 So lets start copying the long line and pasting it into a js beautifier to get a better look:
 
-(Insert image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/beautifiedJavascript.png)
 
 We can start to see that the symbols start to look like they are forming functions almost. This is a lot of symbols so lets take the first section of js that looks like a function:
 
-(Insert Image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/firstSectionCodeJs.png)
 
 When we insert the js into the console we get this:
 
-(Insert image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/firstSectionJs.png)
 
 Alright next section:
 
-(Insert image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/nextSectionCodJs.png)
 
 Nothing yet: 
 
-(Insert image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/nextSectionJs.png)
 
 We keep going at this until we find the flag:
 
-(Insert image here)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/flag.png)
 
 # Afterthoughts
 
