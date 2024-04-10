@@ -85,5 +85,7 @@ We keep going at this until we find the flag:
 # Afterthoughts
 
 - After looking at another write up for this challenge, (This one here: https://b4d.sablun.org/blog/2020-03-22-247ctf-com-web-trusted-client) I had come to find out that the challenge was using a way of writing js called JSFUCK. At first I did recognize that js could written in the way that JSFUCK has but didn't know the name of it. 
+    - Furthermore, from the writeup I did find a website that deobfuscates JSFUCK but in my case I had issues due to putting too much of the obfuscated js
+        - Here is the site: https://enkhee-osiris.github.io/Decoder-JSFuck/
 - A very useful deobfuscator that I had used to help structure the js better was this one here: https://deobfuscate.relative.im/
 
