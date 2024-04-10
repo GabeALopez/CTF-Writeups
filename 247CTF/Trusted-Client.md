@@ -2,7 +2,7 @@
 
 When opening up the web page it first looks like this:
 
-(Insert image here)
+![alt text]([https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=tru](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Trusted-Client/webpage.png)e)
 
 First attempts to be made were to try to login with default credentials. i.e.
 
