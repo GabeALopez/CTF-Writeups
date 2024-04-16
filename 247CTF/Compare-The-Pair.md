@@ -2,7 +2,7 @@
 
 When opening up the challenge the following web page is shown:
 
-<Insert image here>
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Compare-The-Pair/mainPage.png)
 
 It is some php code of how the web page works on the background. The code is seems to vulnerable with the conditional.
 
@@ -54,4 +54,4 @@ After sitting for a while and we get the number 237701818
 
 When we pass it in we get the flag:
 
-<Insert image>
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Compare-The-Pair/flag.png)
