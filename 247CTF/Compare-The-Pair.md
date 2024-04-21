@@ -52,6 +52,6 @@ for number in itertools.count():
 
 After sitting for a while, we get the number 237701818
 
-When we pass it in we get the flag:
+When we pass it in with "/?password=237701818" we get the flag:
 
 ![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/247CTF/Compare-The-Pair/flag.png)
