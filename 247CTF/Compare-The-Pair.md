@@ -50,7 +50,7 @@ for number in itertools.count():
         continue
 ```
 
-After sitting for a while and we get the number 237701818
+After sitting for a while, we get the number 237701818
 
 When we pass it in we get the flag:
 
