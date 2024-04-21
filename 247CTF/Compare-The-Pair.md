@@ -20,7 +20,7 @@ if("1" == 1){
 ```
 In the example above, since PHP has type juggling this example will return true. The "==" operator is more loose than the "===" operator in PHP, thus the statement returns true.
 
----End---
+# Back to the Challenge
 
 In the case of the challenge, the password hash variable that has the 0e is interpreted as 0 in conditionals. So what does this mean in the challenge? This means that we can pass in a specific string using our own input that would make the condition true. When that happens it will return the flag
 
