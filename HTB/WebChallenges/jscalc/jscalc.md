@@ -25,7 +25,7 @@ We can first try to put in some special characters like single or doubles quotes
 
 If you wanted you could fuzz for this parameter with a tool like FUFF or with burp/Zap's fuzzers. But at this point I had started to look at the source code that the was given with this challenge.
 
-I had unzipped it and look at the directory with vs code. The two files that caught my eye the first was the index.js and more specifically the logic that handles passing the form data into a calculate function. The second, was calculatorHelper.js which contained the logic that handles the calculation:
+I had unzipped it and look at the directory with VS Code. The two files that caught my eye the first was the index.js and more specifically the logic that handles passing the form data into a calculate function. The second, was calculatorHelper.js which contained the logic that handles the calculation:
 
 ![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/jscalc/index-js-file.png)
 
