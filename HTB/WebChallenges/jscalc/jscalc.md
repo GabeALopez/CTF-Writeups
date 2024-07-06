@@ -1,5 +1,12 @@
 # TL;DR
 
+1. Saw that special input had caused a difference in behavior
+2. Looked into the source code that was given and found that the logic that handled the calculation
+3. Saw that the logic was using eval() dangerously
+4. Looked around online for payloads to read file on server
+5. Found a payload that worked and was able to execute commands on the server
+6. "Cated" the flag.txt
+
 # Detailed Writeup
 
 When first running the website and browsing to it we see this page: 
@@ -28,7 +35,19 @@ When examining the code for calculatorHelper.js we see a function that JavaScrip
 
 I get into why the function is dangerous to use in the following header
 
-## Why is eval() dangerous
+## Why is eval() Dangerous?
+
+The short and sweet of it is that eval() can lead to at lot of injection attacks. 
+
+In the following simple sample code, one can execute arbitrary code because of the eval statement:
+
+```
+malicious_input = "alert(1)"
+
+eval(malicious_input)
+```
+
+When ran in a console, you will notice that an alert had popped up on the browser. Now this does mean much when just looking at the sample code. Now when you put this in the context of some kind of user input, let's say a login form on Amazon website, on the back end of that website it can be seen as dangerous. An attacker can use this to try to get a shell on the server and gain an initial access to Amazon website.
 
 # Getting Back to the CTF
 
