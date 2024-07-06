@@ -1,5 +1,12 @@
 # TL;DR
 
+1. Registered an account and tried to decode the JWT token
+2. Tried to change the name in the token: did not work
+3. Looked at the source code and saw that the server is looking for the Administrator account
+4. Saw that the login logic did not throw error for not having two inputs
+5. Passed the json data with just the Administrator 
+6. Copied and pasted the token in the browser cache, accessed the profile page, and got the flag
+
 # Detailed Writeup
 
 When first opening up the website we see this page:
