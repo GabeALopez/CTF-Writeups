@@ -1,8 +1,6 @@
-# Start
+# TL;DR
 
-## TL;DR
-
-## Detailed Writeup
+# Detailed Writeup
 
 When first running the website and browsing to it we see this page: 
 
@@ -30,9 +28,9 @@ When examining the code for calculatorHelper.js we see a function that JavaScrip
 
 I get into why the function is dangerous to use in the following header
 
-### Why is eval() dangerous
+## Why is eval() dangerous
 
-## Getting Back to the CTF
+# Getting Back to the CTF
 
 Now that we know that is part of the logic is dangerous, we need to figure out the payload to try to read files on the system. 
 
