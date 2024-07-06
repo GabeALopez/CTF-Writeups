@@ -6,25 +6,25 @@
 
 When first running the website and browsing to it we see this page: 
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/Images/HTB/jscalc/website.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/jscalc/website.png)
 
 
 
 We first hit the calculate button and it returns the value from the values that already put into the form:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/Images/HTB/jscalc/calculate.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/jscalc/calculate.png)
 
 We can first try to put in some special characters like single or doubles quotes. We end up getting a blank error alert which is interesting:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/Images/HTB/jscalc/special-character.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/jscalc/special-character.png)
 
 If you wanted you could fuzz for this parameter with a tool like FUFF or with burp/Zap's fuzzers. But at this point I had started to look at the source code that the was given with this challenge.
 
 I had unzipped it and look at the directory with vs code. The two files that caught my eye the first was the index.js and more specifically the logic that handles passing the form data into a calculate function. The second, was calculatorHelper.js which contained the logic that handles the calculation:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/Images/HTB/jscalc/index-js-file.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/jscalc/index-js-file.png)
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/Images/HTB/jscalc/calculatorHelper-js-file.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/jscalc/calculatorHelper-js-file.png)
 
 When examining the code for calculatorHelper.js we see a function that JavaScript (JS) uses that is known to be dangerous. Along with an anonymous function inside the eval statement.
 
@@ -44,7 +44,7 @@ After some searching around on the internet for a JS payload that executes comma
 
 This payload had produced this result from the server:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/Images/HTB/jscalc/bytes.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/jscalc/bytes.png)
 
 I used ChatGPT to write up a quick python script to decode the bytes from a file:
 
@@ -71,7 +71,7 @@ if decoded_text:
 
 And the code produced the following result after copying the bytes into a text file:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/Images/HTB/jscalc/read-bytes.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/jscalc/read-bytes.png)
 
 Ok this is good, now we can read files on the server. 
 
