@@ -1,5 +1,12 @@
 # TL;DR
 
+1. Looked at the source code and found the url param could be manipulated
+2. Found that the website has a debug page that holds the flags and can only be accessed via localhost
+3. Tried appending an "@" and then an internal IP address
+4. Found that it crashed the server and I looked back into the source code
+5. Found that there is a blacklist blocking the input and that the debug page needs to be accessed on port 1337
+6. Gave another IP address that represents localhost and port number with the debug directory, which produced the flag
+
 # Detailed Writeup
 
 When first opening up website it shows us this if you are not authenticated to reddit:
@@ -43,7 +50,7 @@ Welp, no environment vars. Let's look at some other files in the website project
 
 ![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/port.png)
 
-So let's try again, but wih the port:
+So let's try again, but with the port:
 
 ![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/flag.png)
 
