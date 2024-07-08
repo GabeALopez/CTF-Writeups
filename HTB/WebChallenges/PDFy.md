@@ -1,6 +1,6 @@
 # TL;DR
 
-1. Say that input was reaching out to a website and tried to input "localhost", which produced an error
+1. Saw that input was reaching out to a website and tried to input "localhost", which produced an error
 2. Saw the error came from using the wkhtmltopdf application and looked up vulns for it
 3. Found a vuln and a POC for it and tried to get a PDF
 4. Did not get a PDF and after a few attempts tried to use a command to get a temp domain name for the server to reach out to with a different payload
