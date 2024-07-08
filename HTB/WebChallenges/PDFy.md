@@ -61,4 +61,4 @@ So I tried to just give just the full url of the temp domain name and I got a PD
 
 ![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/PDFy/flag.png)
 
-I come to later find out from other experiments that site was blocking input and found that input that was given had to start with "http://" or "https://"
+I come to later find out from other experiments that the site was blocking input and found that input that was given had to start with "http://" or "https://" or else input would of been blocked.
