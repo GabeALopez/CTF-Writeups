@@ -2,10 +2,10 @@
 
 1. Clicked on button for a clicker game that prompted to get the flag
 2. Saw in ZAP that the response gave back: "This game is currently available only from dev.apacheblaze.local."
-3. Looked at the source code and found that the X-Forwarded-Host needed to have "dev.apacheblaze.local" but the response did not change
-4. Looked back at the httpd.conf file and saw that there were two V-hosts and tried to look into http smuggling POCs
-5. POC didn't do anything and thus looked into the proxy modules that were in the httpd.conf file which turned up a http smuggling POC
-6. I changed the POC request to fit the challenge and I got back the flag
+3. I looked back at the source code and found that the X-Forwarded-Host needed to have "dev.apacheblaze.local" but the response did not change when added it in the request
+4. I looked back at the httpd.conf file this time and saw that there were two V-hosts and tried to look into http smuggling POCs
+5. POC didn't do anything and thus looked into the proxy modules that were in the httpd.conf file which turned up a http smuggling POC for the Apache proxy modules
+6. I then changed the POC request to fit the challenge and I got back the flag
 
 # Detailed Writeup
 
