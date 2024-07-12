@@ -1,5 +1,12 @@
 # TL;DR
 
+1. Clicked on button for a clicker game that prompted to get the flag
+2. Saw in ZAP that the response gave back: "This game is currently available only from dev.apacheblaze.local."
+3. Looked at the source code and found that the X-Forwarded-Host needed to have "dev.apacheblaze.local" but the response did not change
+4. Looked back at the httpd.conf file and saw that there were two V-hosts and tried to look into http smuggling POCs
+5. POC didn't do anything and thus looked into the proxy modules that were in the httpd.conf file which turned up a http smuggling POC
+6. I changed the POC request to fit the challenge and I got back the flag
+
 # Detailed Writeup
 
 When first starting up the site we get this page:
@@ -19,7 +26,7 @@ Starting with the app.py we see that in that file whenever we send the "click_to
 
 ![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ApacheBlaze/initial-try.png)
 
-Nothing that's strange, lets look back at the project code. This is where the httpd.conf file had caught my attention. When I looked at it, I found that Apache was using a reverse proxy and a load balancer through Apache modules. This being the case, the thing that came to mind was an http smuggling request as there are two virtual hosts being used at the same time and that maybe these two v-hosts were processing the user request differently. I had tried some payloads like this one from hacktricks:
+Nothing. That's strange. Lets look back at the project code. This is where the httpd.conf file had caught my attention. When I looked at it, I found that Apache was using a reverse proxy and a load balancer through Apache modules. This being the case, the thing that came to mind was an http smuggling request as there are two virtual hosts being used at the same time and that maybe these two v-hosts were processing the user request differently. I had tried some payloads like this one from hacktricks:
 
 ```
 POST / HTTP/1.1
