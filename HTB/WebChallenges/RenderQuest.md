@@ -51,7 +51,11 @@ Now I had a lot of difficultly trying to figure out why python server was not ge
 
 When I saw this I figured it was something wrong with the IP address that gave to the server to reach back to. I saw that the server provided the your IP address in the cookie. So I tried that IP address and the site hung for a bit but still had an internal server error after a bit of waiting. 
 
-At the time I had assumed that the web challenges were on the internal network IP for some reason so I tried to supply a tun0 IP address (ノ_<。). That didn't work. Lo and behold the issue with the IP address would be the problem that I figured out later but had to be done in a certain way. 
+At the time I had assumed that the web challenges were on the internal network IP for some reason so I tried to supply a tun0 IP address.
+
+(ノ_<。)
+
+That didn't work. Lo and behold the issue with the IP address would be the problem that I figured out later but had to be done in a certain way. 
 
 But at the time, I gave up after this and starting spinning up the docker container that was in project code. What I ended up doing was creating a log file in the code and getting the code to write into the log file at important locations where the code would return an internal server error. I focused on the 'getTpl' function and the error handling code.
 
