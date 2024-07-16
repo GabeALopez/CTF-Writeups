@@ -51,7 +51,7 @@ Now I had a lot of difficultly trying to figure out why python server was not ge
 
 When I saw this I figured it was something wrong with the IP address that gave to the server to reach back to. I saw that the server provided the your IP address in the cookie. So I tried that IP address and the site hung for a bit but still had an internal server error after a bit of waiting. 
 
-At the time I had assumed that the web challenges were on the internal network IP for some reason so I tried to supply a tun0 IP address. :facepalm:
+At the time I had assumed that the web challenges were on the internal network IP for some reason so I tried to supply a tun0 IP address.
 
 (ノ_<。)
 
