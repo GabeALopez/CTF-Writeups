@@ -43,7 +43,7 @@ When 'remote' is set to 'true' it passes the url in the 'page' param in the get 
 
 Going down to the last parts of the 'getTpl' function, we see that it uses a function called tmpl.Execute() where it seems that it renders the remote file. With this we know that the server will attempt to reach out to a remote server to render a file. This being the case, let's try to spin up a python web server and get the website to reach to it just to see if we get a hit.
 
-**NOTE:** the following header is how I did troubleshooting to figure out how to get the website to connect to the python web server as I had some trouble trying to get website to do this. If you want to skip this, click [here](#exploitation)
+**NOTE:** the following header is how I did troubleshooting to figure out how to get the website to connect to the python web server as I had some trouble trying to get the website to do this. If you want to skip this, click [here](#exploitation)
 
 ## Troubleshooting
 
