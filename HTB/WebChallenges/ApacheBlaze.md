@@ -11,7 +11,7 @@
 
 When first starting up the site we get this page:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ApacheBlaze/homepage.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ApacheBlaze/homepage.png)
 
 Opening up ZAP and I started with clicking on all the buttons that were available. There a button that prompted to click on it for the flag, but I wanted to click the others one just in case I miss anything. 
 
@@ -19,12 +19,12 @@ But needless to say the other buttons did not have meaningful change accept for 
 
 This being the case, I had started to look at the source code. The two files that caught my attention were app.py and httpd.conf:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ApacheBlaze/app.png)
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ApacheBlaze/conf-file.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ApacheBlaze/app.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ApacheBlaze/conf-file.png)
 
 Starting with the app.py we see that in that file whenever we send the "click_topia" text in the GET request and set the X-Forwarded-Host to dev.apacheblaze.local we should get the flag. So let's try it here:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ApacheBlaze/initial-try.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ApacheBlaze/initial-try.png)
 
 Nothing. That's strange. Lets look back at the project code. This is where the httpd.conf file had caught my attention. When I looked at it, I found that Apache was using a reverse proxy and a load balancer through Apache modules. This being the case, the thing that came to mind was an http smuggling request as there are two virtual hosts being used at the same time and that maybe these two v-hosts were processing the user request differently. I had tried some payloads like this one from hacktricks:
 
@@ -47,7 +47,7 @@ This search term came up autocorrected after searching it: apache 2.4.55 mod_pro
 
 The POC that the Github page showed was this:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ApacheBlaze/github.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ApacheBlaze/github.png)
 
 So I altered it and tried to send in this GET request and I got the flag:
 
@@ -63,4 +63,4 @@ Connection: keep-alive
 content-length: 0
 ```
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ApacheBlaze/flag.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ApacheBlaze/flag.png)

@@ -10,19 +10,19 @@
 
 When first getting to the site we this homepage:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/PDFy/homepage.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/PDFy/homepage.png)
 
 The site creates PDFs of sites that is given in the form. I tried to spin up a python server and tried to see if the site would reach back. But the site just hanged without any hits from the server
 
 So I tried to put in "http://localhost" and when I did I got this error from the server:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/PDFy/error.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/PDFy/error.png)
 
 wkhtmltopdf, this is interesting as the server says a command failed when it tried to use this application. After this, I did a quick google search for any wkhtmltopdf vulnerabilities and I happen to land on page explaining that wkhtmltopdf has a known SSRF vulnerability. 
 
 After this, I tried to look to see if there were any POC's and I happen to land on exploit-notes.hdks.org which had section dedicated to testing for this vulnerability in wkhtmltopdf:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/PDFy/explanation.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/PDFy/explanation.png)
 
 I followed these steps. Creating the malicious php file, starting the php server, and tried to inject the payload into the form:
 
@@ -33,8 +33,8 @@ I followed these steps. Creating the malicious php file, starting the php server
 
 I tried to just injecting and it got an error message but did get a hit on my server:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/PDFy/payload.png)
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/PDFy/server.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/PDFy/payload.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/PDFy/server.png)
 
 I thought maybe there was something wrong with the php file that I made as I was getting hits on my server. I tried changing the payload to a more simple version than the one in the website that did not take command arguments:
 
@@ -59,6 +59,6 @@ I sent the payload again with new domain name copied from the above command and 
 
 So I tried to just give just the full url of the temp domain name and I got a PDF with the flag: 
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/PDFy/flag.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/PDFy/flag.png)
 
 I come to later find out from other experiments that the site was blocking input and found that input that was given had to start with "http://" or "https://" or else input would of been blocked.

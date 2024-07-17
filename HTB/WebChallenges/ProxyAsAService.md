@@ -11,14 +11,14 @@
 
 When first opening up website it shows us this if you are not authenticated to reddit:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/homepage.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ProxyAsAService/homepage.png)
 
 At first, I considered experimenting with the URL parameter, but then I opted to inspect the source code instead, to avoid blindly guessing what was going break the website.
 
 I downloaded the zip file and looked at the routes.py and util.py files:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/routes.png)
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/util.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ProxyAsAService/routes.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ProxyAsAService/util.png)
 
 The interesting part about the routes.py code were these pieces of code:
 
@@ -36,7 +36,7 @@ https://{domain}@attacker.com
 ```
 If we read into the website source code a bit more, we see that there is a directory to the debug route that shows the environment variables. When looking into the other files for the website we see that the environment var (seen in the Dockerfile) for the site actually holds the flag, so we want to get to the "debug/environment" path. But according to the code, we can only access it via localhost. Luckily we found a way to do redirects, so we can try to redirect to localhost on the site and access the "debug/environment" path. So let's go ahead and do that:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/first-try.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ProxyAsAService/first-try.png)
 
 Well it looks like that input isn't doing anything. Perhaps it is being blocked. So let's look into the source code once again, but this time let's look at the util.py file to see why. 
 
@@ -44,14 +44,14 @@ It looks like this python file shows that values that hold "localhost", "127.", 
 
 NOTE: If you do not know that 0.0.0.0 represents localhost you can go on google and search around. I ended up landing on a GeeksforGeeks page that explains about the localhost IP addresses.
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/second-try.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ProxyAsAService/second-try.png)
 
 Welp, no environment vars. Let's look at some other files in the website project. I looked around and found the run.py file. I found out here that the site runs on port 1337:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/port.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ProxyAsAService/port.png)
 
 So let's try again, but with the port:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/ProxyAsAService/flag.png)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/WebChallenges/ProxyAsAService/flag.png)
 
 Voilà, we have the flag.
