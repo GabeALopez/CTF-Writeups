@@ -13,29 +13,29 @@
 
 When we start up the challenge and browse to the main site we see this:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/homepage.png)
 
 At the bottom of the page we see that it prompts us to send in a link to your template. The first thing I thought of was server side template injection but before I jumped into that I needed to know how the website if you put in just anything. 
 
 I just put in 'asdf' and clicked the 'Render now' button. I was greeted with an 'Internal server error' message:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/asdf.png)
 
 I then started to look at the request in Burpsuite to see what was specifically being sent:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/burpRequest.png)
 
 What was interesting is that there were two parameters that were being sent to the website and was curious as too what their purpose really was. I later found out once, I started to look into the source code. Looking at source code being said, lets look at the source code and try understand what the web app is doing on the backend.
 
 The file that was the most interesting was the main.go file:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/mainGolangFile.png)
 
 **NOTE:** I put in a few print statements to log what was happening in the web app as it was running for troubleshooting purposes. Furthermore, these log statements are, of course, not part of the code that is given with the challenge. Additionally, I dedicated a header to some of the troubleshooting I did for this challenge if you are interested.
 
 If we read the main function, we see that the web app is handling requests to '/', '/render', and '/static/' directories. The most interesting request handling was, of course, with the '/render/ directory. The handling of the directory uses a function called 'getTpl', grabs a url that is passed in the 'page' parm in the get request to this directory. Here is the part of the code in question:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/getTpl.png)
 
 The code also later has logic that handles the 'remote' param of the get request. I thought it was interesting at first, but later found out that this did not have much impact when I did the exploitation, or at least I don't think it had much impact. 
 
@@ -75,7 +75,7 @@ After this, I copied the temp domain and gave the url: http://<temp domain name>
 
 After all that troubleshooting we were able to get the server to finally render basic html from the python server:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/index.png)
 
 Knowing that we can finally do this, this means that we should try to see if we can try to render anything with a server template. I first started with looking into hacktricks for server side template injection (SSTI) payloads for golang web apps to test if it would render on the page. Hacktricks did have two payloads to test this. It does talk about how it works briefly but didn't seem to go any further and I wanted more detail. This I had to do some further research on. But here are the two different ways from hacktricks: 
 
@@ -92,7 +92,7 @@ I had opted for the second payload at the time and was able to get results:
 
 **NOTE:** I hosted a file called test3.html at the time with just '{{printf "%s" "ssti" }}' in the file
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/initialSSTI.png)
 
 Now the question remains. How do we start executing commands on the web server to get the flag? With that question in mind I did some research into golang SSTI. After a quick google search I landed on this article: https://www.onsecurity.io/blog/go-ssti-method-research/
 
@@ -110,14 +110,14 @@ So in the case of the source code there is a function called 'FetchServerInfo' t
 
 This would return group info on the web app:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/id.png)
 
 What is happening is that the template injection calls upon the FetchServerInfo function and we pass 'id' as the shell command. How do we know it's going to run a shell command? Well, if we look at the code for the 'FetchServerInfo' function it actually is building a linux command where the string var 'command' is being used in building out that linux command using 'sh'. Isn't that nice? The function will then output the result of the command to the page where, in our case, we see the group info for the web app server. 
 
 This being the case, let's look for the flag. Looking at the rest of the project in the challenge it has an entrypoint.sh file that shows that the flag is placed in the root directory with a random assortment of digits and letters. So let's 'ls' the root directory:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/listFiles.png)
 
 Now let's cat the flag!:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/RenderQuest/flag.png)
