@@ -9,4 +9,5 @@
 7. Got the reverse shell, looked for config files, and found credentials for the user on the SSH service
 8. Logged in and got the user flag
 9. Enumerated user with linpeas, tried dirty cow exploit, and failed
-10. Saw an exploit script that was in the home directory of the user to get root access? CVE-2022-37706
+10. Saw an exploit script that was in the home directory of the user to get root access? CVE-2022-37706 Check back later to make sure
+find / -perm -4000 2>/dev/null
