@@ -47,7 +47,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 
 Seeing that there only two ports open, I had went to the website. The homepage looked liked this:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/BoardLight/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/BoardLight/homepage.png)
 
 I started looking around and testing the contact forms to see if there any requests being sent from them. I didn't find anything and decided to try bruteforcing directories. I had noticed that pages were php pages and so I tried to bruteforce with that in mind using the following command:
 
@@ -67,13 +67,13 @@ ffuf -w /usr/share/wordlists/seclists/DNS/subdomains-top1million-5000.txt -u 'ht
 
 I ended up finding one subdomain called crm.board.htb and navigated to it:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/BoardLight/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/BoardLight/crm.png)
 
 Finding the CRM is Dolibarr 17.0, I had looked up a vulnerablity for it and found this github page: ```https://github.com/nikn0laty/Exploit-for-Dolibarr-17.0.0-CVE-2023-30253```
 
 The vulnerablity works if you have authenticated access to the site. So I tried some default creds with admin, admin and I got in. Once I did that, I ran the exploit script and got a reverse shell:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/BoardLight/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/BoardLight/ReverseShell.png)
 
 I started looking for config files and found one this path: ```/var/www/html/crm.board.htb/htdocs/conf/conf.php``` where it had contained a password for the database. I used the pass for the larissa user on the box and got the user shell. After this, I started doing some enumeration with linpeas, and some manual enumeration with these commmands: ```sudo -l``` and ```find / -perm -4000 2>/dev/null```
 
