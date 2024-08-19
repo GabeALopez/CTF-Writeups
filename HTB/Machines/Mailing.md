@@ -11,7 +11,7 @@
 7. Found a vuln for CVE-2024-21413 and used POC to send a malicious payload to the maya bot user
 8. Retrieved the NTLM hash of the maya user and cracked it
 9. Then used the username and password to access the user shell with EvilWinRm
-10. Looked around and found a vulnerable LibreOffice in the program files with CVE CVE-2023-2255
+10. Looked around and found a vulnerable LibreOffice in the program files with CVE-2023-2255
 11. Found that the vuln is an RCE vuln and found a POC that create a malicious ODT file that executed this command: ```net localgroup Administradores maya /add```
 12. I created the ODT with the POC and executed the file in the "Important Documents" folder where then the ODT was clicked on by bot user
 13. Now with the maya user as admin I had then got the SAM hashes from crackmapexec
@@ -213,4 +213,22 @@ After that we have the contents of the ini file and we find a md5 hash in there.
 
 ![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/)
 
-We find the password for the mail server and let's see if there are any recent vulns related to hMailServer. We do find one with 
+We find the password for the mail server and let's see if there are any recent vulns related to hMailServer. We do find one and we also find a POC for this vuln here at this github: ```https://github.com/xaitax/CVE-2024-21413-Microsoft-Outlook-Remote-Code-Execution-Vulnerability```
+
+Following the instructions on the github I give the script the smtp port, server name, username: administrator@mailing.htb, password, recipient email: maya@mailing.htb, and url of the mailing server. After this the instructions, have you run a responder session to capture the NTLM hash of the maya user. 
+
+After some time I was able to get the NTLM hash:
+
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/)
+
+After we crack it with hashcat we get the password of the maya user. I then used this password and maya as the user for an EvilWinRm session and got the user flag. 
+
+Alrighty, half way there!
+
+After doing much enumeration on the box as the maya user we find that libreoffice is a program that can be ran on the box. This was found in the program files of the box. Once you look into it you find that the version of libreoffice is out of date and has a vuln related to it that allows for privilege escalation. This vuln is CVE-2023-2255
+
+We also see that there is a POC for this vuln at this github page ```https://github.com/elweth-sec/CVE-2023-2255```
+
+After running it locally and uploading the file onto the, we still need a way to get a user on the box to execute the malicious file that the POC created. Searching around some more we find that there is an important documents folders. When we put the document into this folder we find that it is executed and we are given admin privileges.  
+
+With that, we are able to get the root flag.
