@@ -189,17 +189,17 @@ What's interesting about the results is that we have a lot of info related to a 
 
 That being the case, I went to enumerate the website that was open on port 80. After adding the mailing.htb domain to the /etc/hosts file, I opened up the site to the homepage here:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/homepage.png)
 
 I did some directory and subdomain bruteforcing with FUFF and feroxbuster, which did not have anything really interesting. Looking on the site again, I saw a download button and looked at the request in burp:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/burpReq.png)
 
 Looking at the request made me think that maybe I could try an LFI vuln payload and try to view files that I am not supposed to. That being the case, I used the graceful-windows fuzzing file in seclists with FUFF to try to see if I could get anything. 
 
 After fuzzing and filtering out the most common size I did get a few results:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/fuzz.png)
 
 This shows that there is a LFI vuln and that I should try to look for a specific file. But what file should I look for? If we look at the site, we read that the box is using a mail server but not just any mail server. A specific mail server called hmailserver and if we look up a config file for this server we find that there is a config file called ```hmailserver.ini```. But where is this file located on the server? Upon further research online we find that it is located in the ```C:\Program Files\hMailServer\Bin``` directory
 
@@ -211,7 +211,7 @@ This being the case, let's use this payload after the question mark and removing
 
 After that we have the contents of the ini file and we find a md5 hash in there. Let's grab this hash and crack it with hashcat:
 
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/)
+![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/crackedHash.png)
 
 We find the password for the mail server and let's see if there are any recent vulns related to hMailServer. We do find one and we also find a POC for this vuln here at this github: ```https://github.com/xaitax/CVE-2024-21413-Microsoft-Outlook-Remote-Code-Execution-Vulnerability```
 
@@ -223,7 +223,7 @@ After some time I was able to get the NTLM hash:
 
 After we crack it with hashcat we get the password of the maya user. I then used this password and maya as the user for an EvilWinRm session and got the user flag. 
 
-Alrighty, half way there!
+Alrighty, almost there!
 
 After doing much enumeration on the box as the maya user we find that libreoffice is a program that can be ran on the box. This was found in the program files of the box. Once you look into it you find that the version of libreoffice is out of date and has a vuln related to it that allows for privilege escalation. This vuln is CVE-2023-2255
 
