@@ -1,6 +1,6 @@
 # Acknowledgements
 
-Big thanks to Pr3ach3r for helping me with the box. You can find his articles on other CTF writeups here: https://medium.com/@preacher.fulltime
+Big thanks to Pr3ach3r for helping me with the box on HTB discord. You can find his articles on other CTF writeups here: https://medium.com/@preacher.fulltime
 
 # TL;DR
 
