@@ -219,9 +219,7 @@ We find the password for the mail server and let's see if there are any recent v
 
 Following the instructions on the github I give the script the smtp port, server name, username: administrator@mailing.htb, password, recipient email: maya@mailing.htb, and url of the mailing server. After this the instructions, have you run a responder session to capture the NTLM hash of the maya user. 
 
-After some time I was able to get the NTLM hash:
-
-![alt text](https://github.com/GabeALopez/CTF-Writeups/blob/main/Images/HTB/Machines/Mailing/)
+After some time I was able to get the NTLM hash
 
 After we crack it with hashcat we get the password of the maya user. I then used this password and maya as the user for an EvilWinRm session and got the user flag. 
 
